@@ -6,7 +6,6 @@
 package Encoder;
 
 import java.util.Scanner;
-import org.omg.IOP.Encoding;
 
 /**
  *
@@ -19,54 +18,52 @@ public class main_run {
      */
     public static void main(String[] args) throws Exception {
 
-        System.out.println("Entre mensaje:");
+//        System.out.println("Entre mensaje:");
         Scanner obj = new Scanner(System.in);
-        String msg = obj.next();
+//        String msg = obj.next();
+//
+//        System.out.println("Entre un codigo ortogonal");
+//        String vectorMsg = obj.next();
+//        String[] codOrt = vectorMsg.split(",");
+//
+//        Encoder encoder = new Encoder(msg, codOrt);
+//        int[] codedString = encoder.runEncoding();        
 
-        byte[] bytes = msg.getBytes();
-        StringBuilder binary = new StringBuilder();
-        for (byte b : bytes) {
-            int val = b;
-            for (int i = 0; i < 8; i++) {
-                binary.append((val & 128) == 0 ? 0 : 1);
-                val <<= 1;
+        System.out.println("Entre mensaje codificado ");
+        String codedMsg = obj.next();
+        String[] codMensaje = codedMsg.split(",");
+
+        System.out.println("Entre codigo ortogonal ");
+        String codOrt = obj.next();
+        String[] codOrtogonal = codOrt.split(",");
+
+        String decodedMsg = "", charact;
+        int byt = 0;
+
+        System.out.println("CodeMsjLeng " + codMensaje.length);
+        System.out.println("Ort " + codOrtogonal.length);
+
+        for (int i = 0; i < codMensaje.length; i++) {
+
+            for (int j = 0; j < codOrtogonal.length; j++, i++) {
+                System.out.println("Char Coded " + codOrtogonal[j]);
+                System.out.println("Char Ort " + codMensaje[i]);
+
+                byt += Integer.parseInt(codMensaje[i]) * Integer.parseInt(codOrtogonal[j]);
+                System.out.println("Suma Acum " + byt);
             }
+            decodedMsg += (byt < 0) ? 1 : 0;
         }
-        System.out.print("msg binario" + binary + " ");
-        System.out.println(binary.length());
+        System.out.println(decodedMsg);
+        System.out.println(decodedMsg.length());
+        String decodedCharacteres = "";
 
-        System.out.println("Entre un codigo ortogonal");
-        String vectorMsg = obj.next();
-        String[] codOrt = vectorMsg.split(",");
-        System.out.println("Longitud " + codOrt.length);
-
-        for (int i = 0; i < codOrt.length; i++) {
-            int cod = Integer.valueOf(codOrt[i]);
-            System.out.println(cod);
-            if (cod != 1 && cod != -1) {
-                throw new Exception("El código ortogonal no es correcto");
-            } else {
-                System.out.println("El codigo es correcto");
-            }
+        for (int i = 0; i <= decodedMsg.length() / 8; i++) {
+            int aux = Integer.parseInt(decodedMsg.substring(i, i + 8));
+            String aChar = new Character((char) aux).toString();
+            decodedCharacteres += aChar;
         }
-        int tamCoded = binary.length() * codOrt.length;
-        int[] coded = new int[tamCoded];
-        for (int i = 0; i < binary.length(); i++) {
-            int a1 = Integer.parseInt(String.valueOf(binary.charAt(i)));
-            for (int j = 0; j < codOrt.length; j++) {
-                int b1 = Integer.valueOf(codOrt[j]);
-                int c1 = a1 + b1;
-                System.out.println(c1);
-                coded[--tamCoded] = c1 == 1 ? 1 : -1;
-            }
-        }
-        System.out.println(coded.length);
-        String codedString = "";
-
-        for (int i = 0; i < coded.length; i++) {
-            codedString += coded[i];
-        }
-        System.out.println(codedString);
-
+        System.out.println(decodedCharacteres);
     }
+
 }
