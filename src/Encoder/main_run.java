@@ -17,53 +17,71 @@ public class main_run {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-
-//        System.out.println("Entre mensaje:");
-        Scanner obj = new Scanner(System.in);
-//        String msg = obj.next();
 //
-//        System.out.println("Entre un codigo ortogonal");
-//        String vectorMsg = obj.next();
-//        String[] codOrt = vectorMsg.split(",");
+////        System.out.println("Entre mensaje:");
+//        Scanner obj = new Scanner(System.in);
+////        String msg = obj.next();
+////
+////        System.out.println("Entre un codigo ortogonal");
+////        String vectorMsg = obj.next();
+////        String[] codOrt = vectorMsg.split(",");
+////
+////        Encoder encoder = new Encoder(msg, codOrt);
+////        int[] codedString = encoder.runEncoding();     
+//        System.out.println("Entre mensaje 1");
+//        String msg1 = obj.next();
+//        System.out.println("Entre mensaje 2");
+//        String msg2 = obj.next();
 //
-//        Encoder encoder = new Encoder(msg, codOrt);
-//        int[] codedString = encoder.runEncoding();        
+//        System.out.println("Entre vector ort 1");
+//        String[] codOrtogonal1 = obj.next().split(",");
+//        System.out.println(toStringArryString(codOrtogonal1));
+//
+//        System.out.println("Entre vector ort 2");
+//        String[] codOrtogonal2 = obj.next().split(",");
+//        System.out.println(toStringArryString(codOrtogonal2));
+//
+//        Encoder_CDMA encod = new Encoder_CDMA(msg1, codOrtogonal1);
+//        int[] codMensaje1 = encod.runEncoding();
+//
+//        Encoder_CDMA encod2 = new Encoder_CDMA(msg2, codOrtogonal2);
+//        int[] codMensaje2 = encod2.runEncoding();
+//
+//        int[] coded = new int[(codMensaje1.length>=codMensaje2.length)?codMensaje1.length:codMensaje2.length];
+//
+//        //sumo los mensajes codificados
+//        
+//        for (int i = 0, j = 0; i < codMensaje1.length || j < codMensaje2.length;) {
+//            if (i < codMensaje1.length) {
+//                coded[i] += codMensaje1[i++];
+//            }
+//            if (j < codMensaje2.length) {
+//                coded[j] += codMensaje2[j++];
+//            }
+//        }
+//
+//        System.out.println("Suma de vectores " + toStringArryInt(coded));
+//
+//        Decoder_CDMA decoder = new Decoder_CDMA(coded, codOrtogonal1);
+//        String answ = decoder.runDecoder();
+//
+//        System.out.println("Decodificado " + answ);
 
-        System.out.println("Entre mensaje codificado ");
-        String codedMsg = obj.next();
-        String[] codMensaje = codedMsg.split(",");
-
-        System.out.println("Entre codigo ortogonal ");
-        String codOrt = obj.next();
-        String[] codOrtogonal = codOrt.split(",");
-
-        String decodedMsg = "", charact;
-        int byt = 0;
-
-        System.out.println("CodeMsjLeng " + codMensaje.length);
-        System.out.println("Ort " + codOrtogonal.length);
-
-        for (int i = 0; i < codMensaje.length; i++) {
-
-            for (int j = 0; j < codOrtogonal.length; j++, i++) {
-                System.out.println("Char Coded " + codOrtogonal[j]);
-                System.out.println("Char Ort " + codMensaje[i]);
-
-                byt += Integer.parseInt(codMensaje[i]) * Integer.parseInt(codOrtogonal[j]);
-                System.out.println("Suma Acum " + byt);
-            }
-            decodedMsg += (byt < 0) ? 1 : 0;
-        }
-        System.out.println(decodedMsg);
-        System.out.println(decodedMsg.length());
-        String decodedCharacteres = "";
-
-        for (int i = 0; i <= decodedMsg.length() / 8; i++) {
-            int aux = Integer.parseInt(decodedMsg.substring(i, i + 8));
-            String aChar = new Character((char) aux).toString();
-            decodedCharacteres += aChar;
-        }
-        System.out.println(decodedCharacteres);
     }
 
+    public static String toStringArryString(String[] arr) {
+        String ret = "";
+        for (int i = 0; i < arr.length; i++) {
+            ret += arr[i] + "|";
+        }
+        return ret; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static String toStringArryInt(int[] arr) {
+        String ret = "";
+        for (int i = 0; i < arr.length; i++) {
+            ret += arr[i] + "|";
+        }
+        return ret; //To change body of generated methods, choose Tools | Templates.
+    }
 }
